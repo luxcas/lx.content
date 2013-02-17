@@ -11,7 +11,7 @@ from lx.content.interfaces import ILxarquivo
 from lx.content import contentMessageFactory as _
 
 
-class ExtensionBlobField(ExtensionField, ImageField):
+class ExtensionBlobField(ExtensionField, BlobField):
     """ derivative of blobfield for extending schemas """
 
 
@@ -20,23 +20,24 @@ class ExampleATTypeExtender(object):
     implements(ISchemaExtender)
 
     fields = [
-        ExtensionBlobField('imagem_video',
-            widget=atapi.ImageWidget(
-                label=_(u"A Image - Imagem de video"),
-                description=_(u"Some Image"),
+        ExtensionBlobField('file',
+            widget=atapi.FileWidget(
+                label=_(u"A File - arquivo de video"),
+                description=_(u"Some File"),
             ),
-            required=False,
-            #validators=('isNonEmptyFile'),
+
+            required=True,
+            validators=('isNonEmptyFile'),
         ),
 
-        ExtensionBlobField('secondfile',
-            widget=atapi.FileWidget(
-                label=_(u"Some other file"),
-                description=_(u"Some other file"),
-            ),
-            required=False,
-            #validators=('isNonEmptyFile'),
-        ),
+        #ExtensionBlobField('secondfile',
+        #    widget=atapi.FileWidget(
+        #        label=_(u"Some other file"),
+        #        description=_(u"Some other file"),
+        #    ),
+        #    required=False,
+        #    #validators=('isNonEmptyFile'),
+        #),
     ]
 
     def __init__(self, context):
